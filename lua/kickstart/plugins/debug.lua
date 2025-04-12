@@ -144,5 +144,30 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+    dap.adapters.gdb = {
+      type = 'executable',
+      command = 'gdb',
+      args = { '-i', 'dap' },
+    }
+    dap.configurations.cpp = {
+      {
+        name = 'Launch file',
+        type = 'gdb',
+        request = 'launch',
+        program = function()
+          -- Prompt for executable path
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopAtEntry = true,
+        setupCommands = {
+          {
+            text = '-enable-pretty-printing',
+            description = 'Enable GDB pretty printing',
+            ignoreFailures = false,
+          },
+        },
+      },
+    }
   end,
 }

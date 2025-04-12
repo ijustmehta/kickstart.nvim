@@ -102,7 +102,7 @@ vim.g.have_nerd_font = false
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -171,7 +171,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
+--leetcode.nvim related keybinds
+vim.keymap.set('n', '<C-r>', ':Leet run<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-s>', ':Leet submit<CR>', { noremap = true, silent = true })
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
@@ -613,7 +615,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -623,7 +625,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        ts_ls = {},
         --
 
         lua_ls = {
@@ -714,7 +716,7 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
@@ -834,65 +836,6 @@ require('lazy').setup({
       }
     end,
   },
-  {
-    'catppuccin/nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      require('catppuccin').setup {
-        flavour = 'mocha', -- latte, frappe, macchiato, mocha
-        background = { -- :h background
-          light = 'latte',
-          dark = 'mocha',
-        },
-        transparent_background = false,
-        show_end_of_buffer = false,
-        term_colors = false,
-        dim_inactive = {
-          enabled = false,
-          shade = 'dark',
-          percentage = 0.15,
-        },
-        no_italic = false,
-        no_bold = false,
-        no_underline = false,
-        styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-          comments = { 'italic' }, -- Change the style of comments
-          conditionals = { 'italic' },
-          loops = {},
-          functions = {},
-          keywords = {},
-          strings = {},
-          variables = {},
-          numbers = {},
-          booleans = {},
-          properties = {},
-          types = {},
-          operators = {},
-          -- miscs = {}, -- Uncomment to turn off hard-coded styles
-        },
-        color_overrides = {},
-        custom_highlights = {},
-        default_integrations = true,
-        integrations = {
-          cmp = true,
-          gitsigns = true,
-          nvimtree = true,
-          treesitter = true,
-          notify = false,
-          mini = {
-            enabled = true,
-            indentscope_color = '',
-          },
-          -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-        },
-      }
-
-      vim.cmd.colorscheme 'catppuccin'
-
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
-    end,
-  },
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -981,7 +924,11 @@ require('lazy').setup({
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   { import = 'custom.plugins.leetcode' },
   { import = 'custom.plugins.neoscroll' },
-  --
+  { import = 'custom.plugins.oil' },
+  { import = 'custom.plugins.autotag' },
+  { import = 'custom.plugins.lualine' },
+  { import = 'custom.plugins.catppuccin' },
+
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
