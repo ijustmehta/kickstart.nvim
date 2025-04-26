@@ -209,6 +209,7 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   { import = 'custom.plugins.lsp' },
+  { import = 'custom.plugins.telescope' },
   { import = 'custom.plugins.treesitter' },
   { import = 'custom.plugins.format' },
   { import = 'custom.plugins.autocompletion' },
@@ -246,4 +247,3 @@ require('lazy').setup({
     },
   },
 })
-
